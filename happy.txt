@@ -1,1 +1,3 @@
 운동카테고리 크롤링 완료
+system.out.println("What's Your Hobby?");
+
