@@ -1,0 +1,73 @@
+** Git_hub_Scenarios **
+
+<Scenario A : 동시작업>
+
+1. 동성 & 진휘 New Repository => Collaboration.
+2. 성실한 진휘씨 먼저 작업(a) 착수 -> push
+3. 동성 작업(b) 완료 후 try push -> rejected!
+4. git pull -> 하지만, 작업(a)와 충돌이 예상되므로 'rebase*' 명령어 사용 ~> git pull --rebase origin master 
+5. 동성 git push origin master
+
+
+<Scenario B : Pull Request>
+
+1. 동성 : 새로운 브랜치 생성 : 
+		git checkout -b gino01
+		작업 => git status, git add <xxx.java>, git commit
+2. 진휘 팀장님에게 보고 :
+		git push -u** origin gino01
+3. 팀장님 -> 코멘트 후 반려
+4. feedback 반영 후 pull request
+5. 진휘 팀장님 request 수락. 병합
+		request 수용, 병합 작업
+			git checkout master -> git pull -> git pull origin gino01 -> git push
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* --rebase 옵션을 주면 중앙 저장소의 커밋 이력을 미애의 커밋 이력 앞에 끼워 넣는다.
+	cf) - 만약 작업(a)와 작업(b)가 서로 다른 기능이라면 충돌이 일어날 가능성은 적다.
+		- 하지만 같은 기능에 대해 작업 중이었다면 Conflict가 발생하게된다.
+		- "git status"로 문제 파일 확인하고, 해당 파일을 열어 manual로 conflict를 해결한다.
+		- 해결이 됐으면 "add" 명령어로 staging area에 파일을 추가하고 "git rebase --continue"로 rebase를 계속한다.
+			-- rebase 과정 중 오류가 생긴다면 "git rebase --abort" 명령어로 git pull 이전 상태로 복구할 수 있다.
+			
+			
+			
+** -u | --set-upstream : 로컬 브런치(gino01)과 remote repository의 같은 이름의 브랜치와 연결해 준다.
+						 최로 연결 후에는 단순히 "-git push"만으로도 push할 수 있다.
+						 
+						 
+cf) 초기화
+1.
+로컬 저장소의 .git 디렉토리를 삭제한다.
+
+2.
+로컬 저장소에서 git init을 다시 수행하여 초기화 시킨다.
+
+3. 
+초기화에 등록될 파일을 추가 및 커밋한다.
+git add .
+git commit -m 'Initial commit'
+
+4.초기화 시킬 원격 저장소를 추가시킨다.
+git remote add origin <url>
+
+5. 현재 상태를 원격저장소에 적용시킨다.
+ git push --force --set-upstream origin master
+
+
+		
